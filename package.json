@@ -1,0 +1,40 @@
+{
+  "name": "mermaid-validator",
+  "version": "0.1.0",
+  "description": "Validate Mermaid syntax in Mermaid files, Markdown files, or stdin",
+  "license": "MIT",
+  "author": "Nicholas Blantz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickblantz/mermaid-validator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nickblantz/mermaid-validator/issues"
+  },
+  "homepage": "https://github.com/nickblantz/mermaid-validator#readme",
+  "keywords": [
+    "mermaid",
+    "markdown",
+    "cli",
+    "validation",
+    "coding-agents"
+  ],
+  "type": "module",
+  "bin": {
+    "mermaid-validate": "./src/cli.js"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "dependencies": {
+    "jsdom": "^29.1.1",
+    "mermaid": "^11.16.0"
+  }
+}
