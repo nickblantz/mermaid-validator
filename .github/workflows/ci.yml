@@ -33,3 +33,27 @@ jobs:
 
       - name: Verify package contents
         run: npm pack --dry-run
+
+  docker:
+    name: Docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Build image
+        run: docker build --tag mermaid-validator:test .
+
+      - name: Validate a mounted Mermaid file
+        run: >-
+          docker run --rm
+          --volume "$PWD/test/fixtures:/work:ro"
+          mermaid-validator:test valid.mmd
+
+      - name: Reject invalid stdin
+        run: |
+          if printf 'flowchart LR\n  A -- B\n' | docker run --rm -i mermaid-validator:test; then
+            echo "Expected invalid Mermaid syntax to fail" >&2
+            exit 1
+          fi

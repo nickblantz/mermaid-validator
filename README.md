@@ -23,6 +23,31 @@ npm link
 This installs the `mermaid-validate` command globally for the current Node.js
 installation.
 
+## Docker
+
+Build the image:
+
+```sh
+docker build -t mermaid-validator .
+```
+
+Pipe a diagram through stdin:
+
+```sh
+printf 'flowchart LR\n  A --> B\n' | docker run --rm -i mermaid-validator
+```
+
+To validate a file, mount its directory read-only. The container reads files
+relative to `/work`:
+
+```sh
+docker run --rm -v "$PWD:/work:ro" mermaid-validator architecture.mmd
+docker run --rm -v "$PWD:/work:ro" mermaid-validator README.md
+```
+
+The image runs as an unprivileged user and has the same output and exit-status
+contract as the local command.
+
 ## Usage
 
 ```text
